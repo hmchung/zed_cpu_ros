@@ -3,7 +3,7 @@
     <include file="$(find zed_cpu_ros)/launch/zed_cpu_ros.launch"/>
 
     <arg name="size" default="8x6"/>
-    <arg name="square" default="0.108"/>
+    <arg name="square" default="0.0244"/>
     <arg name="no-service-check" default="true"/>
 
     <node pkg="camera_calibration" type="cameracalibrator.py" name="camera_calibration" output="screen" args="">

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include <opencv2/opencv.hpp>
 #include <ros/ros.h>
@@ -133,7 +134,7 @@ public:
 		private_nh.param("left_frame_id", left_frame_id_, std::string("left_camera"));
 		private_nh.param("right_frame_id", right_frame_id_, std::string("right_camera"));
 		private_nh.param("show_image", show_image_, false);
-		private_nh.param("load_zed_config", load_zed_config_, true);
+		private_nh.param("load_zed_config", load_zed_config_, false);
 		private_nh.param("device_id", device_id_, 0);
 
 		ROS_INFO("Try to initialize the camera");
@@ -168,11 +169,11 @@ public:
 			// get config from the left, right.yaml in config
 			camera_info_manager::CameraInfoManager info_manager(nh);
 			info_manager.setCameraName("zed/left");
-			info_manager.loadCameraInfo( "package://zed_cpu_ros/config/left.yaml");
+			info_manager.loadCameraInfo( "package://zed_cpu_ros/config/" + std::to_string(resolution_) + "/left.ini");
 			left_info = info_manager.getCameraInfo();
 
 			info_manager.setCameraName("zed/right");
-			info_manager.loadCameraInfo( "package://zed_cpu_ros/config/right.yaml");
+			info_manager.loadCameraInfo( "package://zed_cpu_ros/config/" + std::to_string(resolution_) + "/right.ini");
 			right_info = info_manager.getCameraInfo();
 
 			left_info.header.frame_id = left_frame_id_;
